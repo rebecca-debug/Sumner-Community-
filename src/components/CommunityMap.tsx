@@ -117,7 +117,7 @@ export default function CommunityMap() {
       x: 42,
       y: 78,
       heading: 'Civil Defence Welfare Hub',
-      description: 'The primary designated civil defence emergency response center for Sumner. Equipped with high-frequency emergency radio, relief backups, and welfare coordination spaces.',
+      description: 'The primary designated civil defence emergency response centre for Sumner. Equipped with high-frequency emergency radio, relief backups, and welfare coordination spaces.',
       coordinates: '43.5712° S, 172.7662° E',
       address: 'Colenso Street, Sumner',
       icon: Shield,
@@ -200,7 +200,7 @@ export default function CommunityMap() {
             Interactive Community Map
           </h3>
           <p className="font-serif italic text-base text-cream-200/70 mt-1 max-w-2xl">
-            A stylized perspective of Sumner&apos;s coastline, marking key community landmarks, historical points, and vital preparedness zones.
+            A stylised perspective of Sumner&apos;s coastline, marking key community landmarks, historical points, and vital preparedness zones.
           </p>
         </div>
 

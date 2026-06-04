@@ -76,7 +76,7 @@ export default function SumnerHub() {
       {/* Intro Narrative */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
         <p className="text-cream-110 text-sm md:text-base leading-relaxed font-light">
-          The Sumner Hub is home to the Sumner Community Residents&apos; Association &mdash; and so much more. Tucked into the village at 57 Nayland Street, it is where community groups gather, local projects take root, and neighbors find support when they need it most.
+          The Sumner Hub is home to the Sumner Community Residents&apos; Association &mdash; and so much more. Tucked into the village at 57 Nayland Street, it is where community groups gather, local projects take root, and neighbours find support when they need it most.
         </p>
         <p className="text-cream-110 text-sm md:text-base leading-relaxed font-light">
           Our active role is to provide a community perspective to the Christchurch City Council, the Waihoro Spreydon-Cashmere-Heathcote Community Board, and local media &mdash; helping community groups move forward by articulating and guiding where we can.

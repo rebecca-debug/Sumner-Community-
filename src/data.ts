@@ -152,7 +152,7 @@ export const NEWS_ITEMS: NewsItem[] = [
     id: 'dune-conservation',
     headline: 'Native Planting Programme Secures Funding',
     publishedDate: 'April 2025',
-    summary: 'SCRA has secured a $5,000 regional environmental grant to plant 800 native pingao and spinifex grasses to stabilize the beachfront sand dunes against winter storm swells.',
+    summary: 'SCRA has secured a $5,000 regional environmental grant to plant 800 native pingao and spinifex grasses to stabilise the beachfront sand dunes against winter storm swells.',
     linkText: 'Volunteer details'
   }
 ];

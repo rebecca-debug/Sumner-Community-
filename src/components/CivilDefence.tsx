@@ -92,7 +92,7 @@ export default function CivilDefence() {
             <div>
               <h5 className="font-sans font-medium text-xs text-cream-100 uppercase tracking-wider mb-1.5">1. Evacuation Boundaries</h5>
               <p className="text-xs text-cream-200/80">
-                Sumner is divided into Red (beach beaches), Orange (high risk coastal roads), and Yellow (rare event padding) zones. Familiarize yourself with Christchurch City Council&apos;s CDEM map boundaries on Nayland Street.
+                Sumner is divided into Red (beach beaches), Orange (high risk coastal roads), and Yellow (rare event padding) zones. Familiarise yourself with Christchurch City Council&apos;s CDEM map boundaries on Nayland Street.
               </p>
             </div>
 

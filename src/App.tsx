@@ -269,7 +269,7 @@ export default function App() {
                 </span>
               </div>
               <p className="text-[11px] text-cream-200/60 leading-relaxed font-light">
-                A volunteer-led organization dedicated to preserving beach-lifestyle heritage and advocating for environmental safety in Sumner beach, New Zealand.
+                A volunteer-led organisation dedicated to preserving beach-lifestyle heritage and advocating for environmental safety in Sumner beach, New Zealand.
               </p>
             </div>
 
