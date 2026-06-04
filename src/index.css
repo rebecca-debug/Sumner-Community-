@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Redefine variables for the light-theme editorial "Bold Typography" design */
+  --color-ink-black: #FFFDF5; /* Crisp warm cream background */
+  --color-cream-100: #121212; /* High-contrast Ink Black foreground text */
+  --color-cream-105: #1a1a1a;
+  --color-cream-150: #2a2a2a;
+  --color-cream-205: #3f4543;
+  --color-cream-200: #4a5452; /* Premium charcoal text */
+  --color-cream-300: #62726f; /* Muted subheadings / vertical stamps */
+
+  --color-seagreen-50: #f4f8f7;
+  --color-seagreen-100: #e2edea;
+  --color-seagreen-200: #1f473e; /* Visible deep pine green for accents */
+  --color-seagreen-300: #295c51; /* Medium pine green */
+  --color-seagreen-500: #3d5a5a; /* Beautiful design primary green */
+  --color-seagreen-600: #2e4747;
+  --color-seagreen-700: #1f3333;
+  --color-seagreen-800: #122222;
+  --color-seagreen-950: #121212;
+
+  --color-soft-yellow: #f7e8a4; /* Warm beach sand accent */
+  --color-[#e5ba55]: #121212; /* High-contrast editorial highlight instead of yellow */
+  --color-amber-gold: #121212; /* Bold typography primary */
+  --color-deep-blue: #ebdcae;  /* Sandy tint tag block bg */
+  --color-deep-blue-900: #dfd1a1;
+
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom Hide Scrollbar styles */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Luxury card and glass styles - light editorial paper theme */
+.glassmorphism {
+  background: rgba(255, 253, 245, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(18, 18, 18, 0.1);
+}
+
+.glassmorphism-dark {
+  background: rgba(255, 253, 245, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(18, 18, 18, 0.12);
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(18, 18, 18, 0.3);
+  color: transparent;
+}
+
+body {
+  background-color: #FFFDF5;
+  color: #121212;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Page transitions */
+.page-enter {
+  opacity: 0;
+  transform: scale(0.98) translateY(10px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}

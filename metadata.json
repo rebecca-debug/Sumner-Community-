@@ -1,0 +1,6 @@
+{
+  "name": "Sumner Residents Association",
+  "description": "Sumner Community Residents Association (SCRA) website, providing news, committee info, events, civil preparedness, and community van booking with a high-end, elegant beach-lifestyle aesthetic.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
