@@ -115,7 +115,7 @@ export default function CivilDefence() {
                 href="https://www.civildefence.govt.nz"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] uppercase tracking-wider text-seagreen-200 hover:text-cream-100"
+                className="font-mono text-[11px] uppercase tracking-wider text-[#e5ba55] hover:text-cream-100 font-semibold"
               >
                 Official Civil Defence NZ Portal ↗
               </a>
@@ -177,9 +177,9 @@ export default function CivilDefence() {
             <div className="text-4xl font-serif text-[#e5ba55] my-2 font-normal">
               {getKitReadyPercentage()}%
             </div>
-            <div className="w-full bg-white/10 h-1 rounded-none overflow-hidden mt-3">
+            <div className="w-full bg-white/10 h-1.5 rounded-none overflow-hidden mt-3">
               <div
-                className="bg-seagreen-400 h-full transition-all duration-500"
+                className="bg-[#e5ba55] h-full transition-all duration-500"
                 style={{ width: `${getKitReadyPercentage()}%` }}
               />
             </div>
@@ -192,7 +192,7 @@ export default function CivilDefence() {
         {/* Checklist boxes */}
         <div className="lg:col-span-7 bg-white/[0.01] border border-white/10 p-6 md:p-8 rounded-none">
           <h4 className="font-mono text-xs uppercase tracking-widest text-[#e5ba55] mb-6 flex items-center gap-2">
-            <CheckSquare className="w-4 h-4 text-seagreen-300" />
+            <CheckSquare className="w-4 h-4 text-[#e5ba55]" />
             Check Off Hand-Pack Supplies
           </h4>
 
@@ -203,12 +203,12 @@ export default function CivilDefence() {
                 onClick={() => toggleChecklistItem(item.id)}
                 className={`p-4 border transition-colors cursor-pointer flex items-start gap-3 select-none ${
                   item.checked
-                    ? 'bg-seagreen-950/15 border-seagreen-500/50 text-cream-100'
+                    ? 'bg-[#e5ba55]/10 border-[#e5ba55]/50 text-cream-100'
                     : 'bg-black/20 border-white/5 text-cream-100/70 hover:border-white/15'
                 }`}
               >
                 <div className={`w-4 h-4 border mt-0.5 flex items-center justify-center rounded-none shrink-0 ${
-                  item.checked ? 'border-seagreen-400 bg-seagreen-600 text-cream-50' : 'border-white/30'
+                  item.checked ? 'border-[#e5ba55] bg-[#e5ba55] text-black font-bold' : 'border-white/30'
                 }`}>
                   {item.checked && '✓'}
                 </div>

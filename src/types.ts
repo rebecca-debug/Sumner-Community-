@@ -21,6 +21,7 @@ export interface CommitteeMember {
   bio: string;
   email?: string;
   image?: string;
+  imagePosition?: string;
 }
 
 export interface MeetingMinutes {
@@ -38,6 +39,7 @@ export interface CommunityEvent {
   time: string;
   description: string;
   linkText?: string;
+  linkUrl?: string;
 }
 
 export interface NewsItem {

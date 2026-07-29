@@ -126,20 +126,20 @@ export default function BecomeMember() {
           <div className="flex flex-col gap-3">
             <button
               onClick={() => { setFormMode('signup'); setSubmitted(false); }}
-              className={`w-full text-left px-5 py-4 font-mono text-xs uppercase tracking-widest border transition-all ${
+              className={`w-full text-left px-5 py-4 font-mono text-xs uppercase tracking-widest border transition-all cursor-pointer ${
                 formMode === 'signup'
-                  ? 'bg-seagreen-950/50 border-seagreen-500 text-seagreen-200 font-semibold'
-                  : 'bg-transparent border-white/5 hover:bg-white/5 text-cream-200'
+                  ? 'bg-[#e5ba55] border-transparent text-black font-semibold shadow-md'
+                  : 'bg-transparent border-white/10 hover:bg-white/5 text-cream-200'
               }`}
             >
               New Member Sign-Up
             </button>
             <button
               onClick={() => { setFormMode('update'); setSubmitted(false); }}
-              className={`w-full text-left px-5 py-4 font-mono text-xs uppercase tracking-widest border transition-all ${
+              className={`w-full text-left px-5 py-4 font-mono text-xs uppercase tracking-widest border transition-all cursor-pointer ${
                 formMode === 'update'
-                  ? 'bg-seagreen-950/50 border-seagreen-500 text-seagreen-200 font-semibold'
-                  : 'bg-transparent border-white/5 hover:bg-white/5 text-cream-200'
+                  ? 'bg-[#e5ba55] border-transparent text-black font-semibold shadow-md'
+                  : 'bg-transparent border-white/10 hover:bg-white/5 text-cream-200'
               }`}
             >
               Update / Renew Details

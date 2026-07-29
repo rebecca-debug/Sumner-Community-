@@ -5,62 +5,73 @@
 
 import { CommitteeMember, MeetingMinutes, CommunityEvent, NewsItem, HubActivity } from './types';
 
+import andreaImg from './assets/images/andrea.jpg';
+import nigelImg from './assets/images/nigel.jpg';
+import emilyImg from './assets/images/emily.jpg';
+import simonImg from './assets/images/simon.jpg';
+import kevinImg from './assets/images/kevin.jpg';
+import rebeccaImg from './assets/images/rebecca.jpg';
+import jimImg from './assets/images/jim.jpg';
+
 export const COMMITTEE_MEMBERS: CommitteeMember[] = [
   {
     id: 'andrea-davis',
     name: 'Andrea Davis',
     role: 'Chairperson & Council Liaison',
     bio: 'Member since 2020 with a focus on the environment. Andrea is also a member of the ECAN Banks Peninsula Water Zone Committee and was elected to the Environment Canterbury Regional Council.',
-    email: 'chair@sumnerresidents.org.nz',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400&h=400',
+    email: 'chairperson@sumnercommunity.nz',
+    image: andreaImg,
+    imagePosition: 'object-[center_20%]',
   },
   {
     id: 'nigel-georgieff',
     name: 'Nigel Georgieff',
     role: 'Treasurer & Local Business Advocate',
     bio: 'Nigel joined us in November 2025. He brings a wealth of experience in the not-for-profit sector. He currently manages Sumner Bays Union Trust and has 40 years of involvement with a variety of sporting clubs throughout the city.',
-    email: 'treasurer@sumnerresidents.org.nz',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400&h=400',
+    email: 'accounts@sumnercommunity.nz',
+    image: nigelImg,
+    imagePosition: 'object-[center_25%]',
   },
   {
     id: 'emily-quane',
     name: 'Emily Quane',
     role: 'The Arts & Community Noticeboard',
     bio: 'Emily is a qualified Art & Ceramic Teacher and professional artist based in Sumner. Overseeing community arts programming—murals, events, workshops, Emily also runs an after-school art class from The Hub. She is also managing our community noticeboard in the Sumner Village.',
-    email: 'arts@sumnerresidents.org.nz',
-    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400&h=400',
+    image: emilyImg,
+    imagePosition: 'object-[center_20%]',
   },
   {
     id: 'simon-brown',
     name: 'Simon Brown',
     role: 'The Vibe Monitor',
     bio: 'Sumner local since the 1980s, avid surfer, and kaitiaki of the ocean and our esplanade.',
-    email: 'vibe@sumnerresidents.org.nz',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=400',
+    image: simonImg,
+    imagePosition: 'object-[center_25%]',
   },
   {
     id: 'kevin-comm-safety',
     name: 'Kevin Boyle',
     role: 'Community Safety',
     bio: 'Kevin joined the committee in November 2025. He is a retired police investigator and a local Sumner resident passionate about keeping Sumner safe.',
-    email: 'safety@sumnerresidents.org.nz',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400&h=400',
+    image: kevinImg,
+    imagePosition: 'object-[center_25%]',
   },
   {
     id: 'rebecca-brosnahan',
     name: 'Rebecca Brosnahan',
     role: 'Community Events',
     bio: 'Rebecca returned to Christchurch after a 30 year hyatatis and took up residence in Sumner, enjoying the village community feel and living by the ocean. Joining the committee in November 2025, Rebecca brings a strong background in events.',
-    email: 'events@sumnerresidents.org.nz',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400&h=400',
+    image: rebeccaImg,
+    imagePosition: 'object-[center_20%]',
   },
   {
     id: 'jim-perry',
     name: 'Jim Perry',
     role: 'The Hub Coordinator Extraordinaire',
     bio: 'Hub Coordinator and the friendly face at Sumner Hub. Jim helps with community needs and runs the Community Van service, Civil Defence projects, and the Bikery. A passionate outdoorsman and youth mentor with the 180 Degrees Trust.',
-    email: 'hub@sumnerresidents.org.nz',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400&h=400',
+    email: 'hub@sumnercommunity.nz',
+    image: jimImg,
+    imagePosition: 'object-[center_25%]',
   }
 ];
 
@@ -105,31 +116,24 @@ export const PAST_YEARS_ARCHIVES = {
 
 export const UPCOMING_EVENTS: CommunityEvent[] = [
   {
-    id: 'beach-cleanup',
-    name: 'Sumner Beach Clean-Up Morning',
-    date: 'Saturday 14 June 2025',
-    location: 'Sumner Beach car park',
-    time: '9am – 11am',
-    description: 'Grab your gloves and join us for a couple of hours on the beach. We’ll have bags and equipment sorted — all you need to bring is yourself, a friend, and maybe a thermos. Afterwards we’ll head to Beachside Café for a well-earned coffee together. All welcome, all ages.',
-    linkText: 'Register spot'
+    id: 'ocean-ember-sauna',
+    name: 'Ocean Ember Sauna',
+    date: 'Weekly ongoing',
+    location: 'Sumner Hub',
+    time: '5pm - 9pm',
+    description: "Ocean Ember Sauna is grounded in community, care, and connection, born from the idea that wellbeing is a shared phenomenon. Sessions invite you to slow down, restore your wairua, and soak in the heat of the fire. Whether you're seeking relaxation, reflection, or a moment to pause - you're always welcome.",
+    linkText: 'Book Here',
+    linkUrl: 'https://www.oceanembersauna.co.nz/bookings'
   },
   {
-    id: 'village-market',
-    name: 'Sumner Hub Artisan Market',
-    date: 'Sunday 29 June 2025',
-    location: 'Sumner Hub, 57 Nayland Street',
-    time: '10am – 2pm',
-    description: 'Browse craft workshops, organic produce, hand-shaped surfboards, and sample artisanal food. Live local acoustic performances throughout the day.',
-    linkText: 'View details'
-  },
-  {
-    id: 'resilience-workshop',
-    name: 'Emergency Planning & First Aid Guide',
-    date: 'Wednesday 9 July 2025',
-    location: 'Sumner Hub, 57 Nayland Street',
-    time: '7pm – 8:30pm',
-    description: 'Civil Defence instructors walk through tsunami escape routes, earthquake drills, emergency pack assets, and local radio communications.',
-    linkText: 'RSVP'
+    id: 'sumner-artisan-christmas-market',
+    name: 'Sumner Artisan Christmas Market',
+    date: 'Sunday 29th November',
+    location: 'Village Green',
+    time: '10 am - 4 pm',
+    description: 'Browse craft workshops, organic produce, hand-shaped surfboards, and sample artisanal food. Live local acoustic performances throughout the day, along with workshops. Family fun and Christmas shopping ticked off.',
+    linkText: 'Secure your market stall',
+    linkUrl: 'https://forms.gle/Jzv38NKiY3EyuPz18'
   }
 ];
 

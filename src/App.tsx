@@ -15,10 +15,8 @@ import CivilDefence from './components/CivilDefence';
 import SumnerHub from './components/SumnerHub';
 import { Menu, X, Waves, HelpCircle, Anchor, ArrowRight, ShieldAlert, Instagram, Facebook } from 'lucide-react';
 
-// Relative image asset paths
-// @ts-ignore
-import bgImage from '../Hero-Sumner.jpg';
-const hubImage = './assets/images/sumner_community_hub_1780561196126.png';
+import bgImage from './assets/images/Hero-Sumner.jpg';
+import scraLogo from './assets/images/scra_logo.png';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageId>('home');
@@ -45,7 +43,7 @@ export default function App() {
     { id: 'home', label: 'Home' },
     { id: 'about-sumner', label: 'About Sumner' },
     { id: 'committee', label: 'Committee' },
-    { id: 'sumner-hub', label: 'The Hub & Van' },
+    { id: 'sumner-hub', label: 'The Hub & Van Hire' },
     { id: 'news-events', label: 'News & Events' },
     { id: 'civil-defence', label: 'Civil Defence' },
     { id: 'become-member', label: 'Join Us' },
@@ -105,13 +103,17 @@ export default function App() {
             onClick={() => handleNavigation('home')}
             className="flex items-center gap-3 group text-left cursor-pointer border-none bg-transparent"
           >
-            <div className={`relative flex items-center justify-center w-8 h-8 md:w-9 md:h-9 transition-transform duration-500 group-hover:rotate-180 rounded-none border ${
-              isLightBg 
-                ? 'bg-slate-900 border-transparent text-white' 
-                : 'bg-cream-100 border-white/10 text-ink-black'
-            }`}>
-              <Waves className={`w-4 h-4 md:w-5 md:h-5 stroke-[1.5] ${isLightBg ? 'text-[#f7e8a4]' : 'text-seagreen-600'}`} />
-            </div>
+            <img
+              src={scraLogo}
+              alt="SCRA Hub Logo"
+              className="w-9 h-9 md:w-10 md:h-10 object-contain rounded transition-transform duration-300 group-hover:scale-105"
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (target.src !== '/scra_logo.png') {
+                  target.src = '/scra_logo.png';
+                }
+              }}
+            />
             <div>
               <span className={`font-serif text-sm md:text-lg tracking-[0.1em] block font-semibold leading-none ${
                 isLightBg ? 'text-slate-900' : 'text-[#FFFDF5]'
@@ -274,27 +276,27 @@ export default function App() {
             </div>
 
             {/* Quick Links map */}
-            <div className="md:col-span-4 grid grid-cols-2 gap-4">
+            <div className="md:col-span-4 grid grid-cols-2 gap-6">
               <div>
-                <h5 className="font-mono text-[9px] uppercase tracking-widest text-[#e5ba55] mb-2.5">
+                <h5 className="font-mono text-[10px] uppercase tracking-widest text-[#e5ba55] mb-3 text-left">
                   The Directory
                 </h5>
-                <ul className="space-y-1.5 text-xs text-cream-200/80 font-light">
-                  <li><button onClick={() => handleNavigation('about-sumner')} className="hover:text-white cursor-pointer bg-transparent border-none">About Sumner</button></li>
-                  <li><button onClick={() => handleNavigation('committee')} className="hover:text-white cursor-pointer bg-transparent border-none">Committee Bios</button></li>
-                  <li><button onClick={() => handleNavigation('sumner-hub')} className="hover:text-white cursor-pointer bg-transparent border-none">Hub & Van Reservation</button></li>
-                  <li><button onClick={() => handleNavigation('news-events')} className="hover:text-white cursor-pointer bg-transparent border-none">News feed</button></li>
+                <ul className="space-y-2 text-xs text-cream-200/80 font-light text-left">
+                  <li><button onClick={() => handleNavigation('about-sumner')} className="text-left w-full hover:text-white cursor-pointer bg-transparent border-none p-0 transition-colors">About Sumner</button></li>
+                  <li><button onClick={() => handleNavigation('committee')} className="text-left w-full hover:text-white cursor-pointer bg-transparent border-none p-0 transition-colors">Committee Bios</button></li>
+                  <li><button onClick={() => handleNavigation('sumner-hub')} className="text-left w-full hover:text-white cursor-pointer bg-transparent border-none p-0 transition-colors">Hub &amp; Van Reservation</button></li>
+                  <li><button onClick={() => handleNavigation('news-events')} className="text-left w-full hover:text-white cursor-pointer bg-transparent border-none p-0 transition-colors">News Feed</button></li>
                 </ul>
               </div>
 
               <div>
-                <h5 className="font-mono text-[9px] uppercase tracking-widest text-red-300 mb-2.5">
+                <h5 className="font-mono text-[10px] uppercase tracking-widest text-[#e5ba55] mb-3 text-left">
                   Resources
                 </h5>
-                <ul className="space-y-1.5 text-xs text-cream-200/80 font-light">
-                  <li><button onClick={() => handleNavigation('civil-defence')} className="hover:text-white cursor-pointer bg-transparent border-none">Emergency Kit Check</button></li>
-                  <li><button onClick={() => handleNavigation('meeting-notes')} className="hover:text-white cursor-pointer bg-transparent border-none">2025 Minutes PDF</button></li>
-                  <li><button onClick={() => handleNavigation('become-member')} className="hover:text-white cursor-pointer bg-transparent border-none">Become a Member</button></li>
+                <ul className="space-y-2 text-xs text-cream-200/80 font-light text-left">
+                  <li><button onClick={() => handleNavigation('civil-defence')} className="text-left w-full hover:text-white cursor-pointer bg-transparent border-none p-0 transition-colors">Emergency Kit Check</button></li>
+                  <li><button onClick={() => handleNavigation('meeting-notes')} className="text-left w-full hover:text-white cursor-pointer bg-transparent border-none p-0 transition-colors">2025 Minutes PDF</button></li>
+                  <li><button onClick={() => handleNavigation('become-member')} className="text-left w-full hover:text-white cursor-pointer bg-transparent border-none p-0 transition-colors">Become a Member</button></li>
                 </ul>
               </div>
             </div>

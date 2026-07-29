@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { UPCOMING_EVENTS, NEWS_ITEMS } from '../data';
-import { Calendar, Newspaper, Mail, PlusCircle, Check, ArrowRight, MapPin, Clock, X } from 'lucide-react';
+import { Calendar, Newspaper, Mail, PlusCircle, Check, ArrowRight, MapPin, Clock, X, BookOpen, ExternalLink } from 'lucide-react';
 
 export default function NewsEvents() {
   const [newsletterEmail, setNewsletterEmail] = useState('');
@@ -27,11 +27,13 @@ export default function NewsEvents() {
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletterEmail) {
+      const recipient = 'hub@sumnercommunity.nz';
+      const subject = encodeURIComponent('Newsletter Signup');
+      const body = encodeURIComponent(`Please add my email to the SCRA Newsletter mailing list:\n\nEmail: ${newsletterEmail}`);
+      const mailtoUrl = `mailto:${recipient}?subject=${subject}&body=${body}`;
+
+      window.location.href = mailtoUrl;
       setNewsletterSubscribed(true);
-      setTimeout(() => {
-        setNewsletterSubscribed(false);
-        setNewsletterEmail('');
-      }, 5000);
     }
   };
 
@@ -72,10 +74,10 @@ export default function NewsEvents() {
         <div>
           <button
             onClick={() => setShowSubmitModal(true)}
-            className="group inline-flex items-center gap-2 bg-seagreen-950/80 hover:bg-[#e5ba55] text-seagreen-200 hover:text-ink-black px-4 py-3.5 border border-seagreen-700/50 hover:border-transparent font-mono text-xs uppercase tracking-widest transition-all rounded-none"
+            className="group inline-flex items-center gap-2 bg-[#e5ba55] hover:bg-cream-100 text-black px-4 py-3.5 border-none font-mono text-xs uppercase tracking-widest font-semibold transition-all rounded-none shadow-md cursor-pointer"
           >
-            <PlusCircle className="w-4 h-4 text-[#e5ba55] group-hover:text-ink-black" />
-            Submit News or Event
+            <PlusCircle className="w-4 h-4 text-black shrink-0" />
+            <span>Submit News or Event</span>
           </button>
         </div>
       </div>
@@ -84,6 +86,37 @@ export default function NewsEvents() {
       <p className="text-cream-110 text-sm md:text-base leading-relaxed font-light max-w-4xl mb-12">
         From beach clean-ups to community markets, trivia nights to council workshops &mdash; there is always something energetic happening in Sumner. This is your go-to guide for what&apos;s on and what&apos;s new in our village.
       </p>
+
+      {/* Monthly Newsletter Access Section */}
+      <div className="mb-16 bg-white/[0.02] border border-white/10 p-6 md:p-8 relative overflow-hidden">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="flex gap-2 items-center">
+              <BookOpen className="w-4 h-4 text-[#e5ba55]" />
+              <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-seagreen-300">
+                Monthly SCRA Newsletter
+              </h3>
+            </div>
+            <h4 className="font-serif text-2xl md:text-3xl text-cream-50 font-light leading-snug">
+              Read Our Monthly Newsletters
+            </h4>
+            <p className="text-xs md:text-sm text-cream-200/80 leading-relaxed font-light">
+              Catch up on local community updates, committee decisions, event highlights, and village notices. Access and read all current and past editions directly in our shared folder archive.
+            </p>
+          </div>
+          <div className="shrink-0">
+            <a
+              href="https://drive.google.com/drive/folders/1t7m2tS9klw93oQ-NUAlFSFx-XsW9tePP?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2.5 bg-[#e5ba55] hover:bg-cream-100 text-black px-6 py-3.5 font-mono text-xs uppercase tracking-widest font-semibold transition-all group shadow-md"
+            >
+              <span>Read Monthly Newsletters</span>
+              <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </div>
+        </div>
+      </div>
 
       {/* Live Calendar of Events */}
       <div className="mb-20">
@@ -94,7 +127,7 @@ export default function NewsEvents() {
           </h3>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {UPCOMING_EVENTS.map((event) => (
             <div
               key={event.id}
@@ -104,7 +137,7 @@ export default function NewsEvents() {
                 <span className="font-mono text-[10px] text-[#e5ba55] tracking-widest uppercase block mb-1">
                   {event.date}
                 </span>
-                <h4 className="font-serif text-xl text-cream-100 font-normal leading-tight mt-1 mb-4">
+                <h4 className="font-serif text-2xl text-cream-100 font-normal leading-tight mt-1 mb-4">
                   {event.name}
                 </h4>
 
@@ -125,12 +158,23 @@ export default function NewsEvents() {
               </div>
 
               <div className="pt-4 border-t border-white/5">
-                <button
-                  onClick={() => alert(`RSVP registered for ${event.name}! Details sent to your account.`)}
-                  className="font-mono text-[10px] uppercase tracking-widest text-seagreen-200 hover:text-cream-100 flex items-center gap-1 bg-transparent border-none cursor-pointer"
-                >
-                  {event.linkText || 'Register to Join'} <ArrowRight className="w-3 h-3" />
-                </button>
+                {event.linkUrl ? (
+                  <a
+                    href={event.linkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-[11px] uppercase tracking-widest text-[#e5ba55] hover:text-cream-100 font-semibold inline-flex items-center gap-1.5 no-underline transition-colors"
+                  >
+                    {event.linkText || 'Register to Join'} <ArrowRight className="w-3 h-3" />
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => alert(`RSVP registered for ${event.name}! Details sent to your account.`)}
+                    className="font-mono text-[11px] uppercase tracking-widest text-[#e5ba55] hover:text-cream-100 font-semibold flex items-center gap-1 bg-transparent border-none cursor-pointer"
+                  >
+                    {event.linkText || 'Register to Join'} <ArrowRight className="w-3 h-3" />
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -191,9 +235,32 @@ export default function NewsEvents() {
           </div>
 
           {newsletterSubscribed ? (
-            <div className="p-4 bg-seagreen-950/50 border border-seagreen-750 text-seagreen-300 font-mono text-xs flex items-center gap-2 justify-center">
-              <Check className="w-4 h-4 shrink-0" />
-              <span>Email subscribed successfully!</span>
+            <div className="p-5 bg-seagreen-950/60 border border-[#e5ba55]/40 text-cream-100 flex flex-col gap-3">
+              <div className="flex items-center gap-2 text-[#e5ba55] font-mono text-xs uppercase tracking-wider font-semibold">
+                <Check className="w-4 h-4 shrink-0" />
+                <span>Subscription Ready to Send</span>
+              </div>
+              <p className="text-xs text-cream-200/80 leading-relaxed font-light">
+                Your email client should open pre-addressed to <strong className="text-[#e5ba55] font-normal">hub@sumnercommunity.nz</strong> with subject line &ldquo;Newsletter Signup&rdquo;.
+              </p>
+              <div className="pt-2 flex flex-col gap-2">
+                <a
+                  href={`mailto:hub@sumnercommunity.nz?subject=${encodeURIComponent('Newsletter Signup')}&body=${encodeURIComponent(`Please add my email to the SCRA Newsletter mailing list:\n\nEmail: ${newsletterEmail}`)}`}
+                  className="inline-flex items-center justify-center gap-2 bg-[#e5ba55] hover:bg-cream-100 text-black px-4 py-2.5 font-mono text-xs uppercase tracking-widest font-semibold transition-colors no-underline"
+                >
+                  Click Here if Mail Didn&apos;t Open
+                </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setNewsletterSubscribed(false);
+                    setNewsletterEmail('');
+                  }}
+                  className="font-mono text-[10px] text-cream-200/70 hover:text-white uppercase tracking-wider underline cursor-pointer bg-transparent border-none text-center"
+                >
+                  Subscribe Another Email
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleNewsletterSubmit} className="space-y-4">
