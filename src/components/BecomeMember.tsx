@@ -10,6 +10,8 @@ import { BadgeCheck, Sparkles, AlertCircle, ShoppingBag, Send, Mail, RefreshCw }
 export default function BecomeMember() {
   const [formMode, setFormMode] = useState<'signup' | 'update'>('signup');
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -30,24 +32,62 @@ export default function BecomeMember() {
     { title: 'Free Hub Privileges', desc: 'First-option bookings on the community van, tool repository, and workshops.' }
   ];
 
+  // Encodes form fields the way Netlify Forms expects them (same as a normal
+  // HTML form POST: application/x-www-form-urlencoded).
+  const encodeFormData = (data: Record<string, string>) =>
+    Object.keys(data)
+      .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+      .join('&');
+
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.firstName && formData.lastName && formData.email && formData.address) {
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          address: '',
-          membershipType: 'household',
-          newsletter: true,
-          message: ''
-        });
-      }, 6000);
+    if (!(formData.firstName && formData.lastName && formData.email && formData.address)) {
+      return;
     }
+
+    setSubmitting(true);
+    setSubmitError(false);
+
+    // Submits to Netlify Forms so the enquiry is captured and emailed on.
+    // This relies on the hidden "membership" form declared in index.html
+    // (Netlify only detects forms it can see in the built static HTML).
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encodeFormData({
+        'form-name': 'membership',
+        formMode,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+        membershipType: formMode === 'signup' ? formData.membershipType : '',
+        newsletter: formData.newsletter ? 'yes' : 'no',
+        message: formData.message
+      })
+    })
+      .then(() => {
+        setSubmitting(false);
+        setSubmitted(true);
+        setTimeout(() => {
+          setSubmitted(false);
+          setFormData({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            address: '',
+            membershipType: 'household',
+            newsletter: true,
+            message: ''
+          });
+        }, 6000);
+      })
+      .catch(() => {
+        setSubmitting(false);
+        setSubmitError(true);
+      });
   };
 
   return (
@@ -65,7 +105,7 @@ export default function BecomeMember() {
         </div>
         <div className="text-left md:text-right">
           <span className="text-xs text-cream-300 font-mono tracking-widest block font-medium">ANNUAL ALLIANCE FEE</span>
-          <span className="text-xl text-seagreen-200 font-serif block mt-1 font-semibold">$20 / YEAR</span>
+          <span className="text-xl text-seagreen-200 font-serif block mt-1 font-semibold">$25 / YEAR</span>
         </div>
       </div>
 
@@ -83,7 +123,7 @@ export default function BecomeMember() {
           <span className="font-mono text-[10px] text-[#e5ba55] tracking-widest uppercase">HELP SUPPORT DEEP ADVOCACY</span>
           <h4 className="font-serif text-xl text-cream-50 mt-1 mb-2 font-light">Annual Membership Fee</h4>
           <p className="text-xs text-cream-200 leading-relaxed font-light">
-            Our membership rate lists at just <strong className="text-seagreen-300 text-xs font-mono">$20 per household per year</strong>. This small, crucial contribution helps us keep the lights on, fund our clean sustainability projects, support our volunteer hub, and ensure SCRA can continue to stand as a powerful advocate on your behalf to the central Council.
+            Our membership rate lists at just <strong className="text-seagreen-300 text-xs font-mono">$25 per household per year</strong>. This small, crucial contribution helps us keep the lights on, fund our clean sustainability projects, support our volunteer hub, and ensure SCRA can continue to stand as a powerful advocate on your behalf to the central Council.
           </p>
         </div>
       </div>
@@ -175,12 +215,25 @@ export default function BecomeMember() {
               </h5>
               <p className="text-xs text-cream-200/80 max-w-md mx-auto mt-2 leading-relaxed font-light">
                 {formMode === 'signup'
-                  ? 'Thank you for investing in Sumner. We have sent a confirmation email containing our Westpac bank account and membership reference. Please deposit $20 to complete activation.'
+                  ? 'Thank you for investing in Sumner. We have sent a confirmation email containing our Westpac bank account and membership reference. Please deposit $25 to complete activation.'
                   : 'We have registered your updated home and email details in our local systems. We’ll reach out if any additional fee actions are required.'}
               </p>
             </div>
           ) : (
-            <form onSubmit={handleFormSubmit} className="space-y-4">
+            <form
+              onSubmit={handleFormSubmit}
+              name="membership"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              className="space-y-4"
+            >
+              {/* Hidden fields Netlify Forms needs on the real submission */}
+              <input type="hidden" name="form-name" value="membership" />
+              <p className="hidden">
+                <label>
+                  Don&apos;t fill this out if you&apos;re human: <input name="bot-field" />
+                </label>
+              </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block font-mono text-[9px] tracking-widest text-cream-300 uppercase mb-1.5">
@@ -274,7 +327,7 @@ export default function BecomeMember() {
                         className="sr-only"
                       />
                       <span className="font-mono text-[10px] text-cream-100 font-semibold uppercase">Household</span>
-                      <span className="text-[11px] text-[#e5ba55] mt-1">$20/year</span>
+                      <span className="text-[11px] text-[#e5ba55] mt-1">$25/year</span>
                     </label>
 
                     <label className={`border p-3 flex flex-col justify-between cursor-pointer transition-colors ${
@@ -308,7 +361,7 @@ export default function BecomeMember() {
                         className="sr-only"
                       />
                       <span className="font-mono text-[10px] text-cream-100 font-semibold uppercase">Individual Supporter</span>
-                      <span className="text-[11px] text-[#e5ba55] mt-1">$20/year</span>
+                      <span className="text-[11px] text-[#e5ba55] mt-1">$25/year</span>
                     </label>
                   </div>
                 </div>
@@ -340,12 +393,27 @@ export default function BecomeMember() {
                 />
               </div>
 
+              {submitError && (
+                <div className="border border-red-500/30 bg-red-950/20 p-3 flex gap-2 items-start">
+                  <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                  <p className="text-[11px] text-red-300 leading-normal font-light">
+                    Something went wrong sending that through. Please try again, or email us directly at{' '}
+                    <a href="mailto:hub@sumnercommunity.nz" className="underline">hub@sumnercommunity.nz</a>.
+                  </p>
+                </div>
+              )}
+
               <div>
                 <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-[#e5ba55] hover:bg-cream-100 text-ink-black px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] font-medium transition-all duration-300 rounded-none shadow-md"
+                  disabled={submitting}
+                  className="w-full inline-flex items-center justify-center gap-2 bg-[#e5ba55] hover:bg-cream-100 text-ink-black px-6 py-3.5 font-mono text-xs uppercase tracking-[0.2em] font-medium transition-all duration-300 rounded-none shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <span>{formMode === 'signup' ? 'Submit Registration' : 'Save Details Update'}</span>
+                  <span>
+                    {submitting
+                      ? 'Sending...'
+                      : formMode === 'signup' ? 'Submit Registration' : 'Save Details Update'}
+                  </span>
                   <Send className="w-3.5 h-3.5" />
                 </button>
               </div>
