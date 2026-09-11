@@ -12,6 +12,28 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!--
+      Static, hidden copy of the membership form below.
+      Netlify only detects forms it can see in the plain built HTML, not
+      forms that only appear once React renders them in the browser — so
+      this duplicate (never shown to visitors) is what lets Netlify Forms
+      pick up the real one in src/components/BecomeMember.tsx and email
+      submissions on. Keep the "name" and field "name"s in sync with that
+      file if the form ever changes.
+    -->
+    <form name="membership" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="form-name" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="formMode" />
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="address" />
+      <input type="text" name="membershipType" />
+      <input type="text" name="newsletter" />
+      <textarea name="message"></textarea>
+    </form>
   </body>
 </html>
-
