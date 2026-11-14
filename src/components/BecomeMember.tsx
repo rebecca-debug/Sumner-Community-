@@ -194,7 +194,7 @@ export default function BecomeMember() {
           <div className="border border-white/5 p-4 flex gap-3 items-start bg-black/15">
             <AlertCircle className="w-4 h-4 text-[#e5ba55] shrink-0 mt-0.5" />
             <p className="text-[11px] text-cream-250 leading-normal font-light">
-              Payment is requested via bank deposit after review. One of our coordinators will email instructions with our Westpac account info.
+              Every application is reviewed by our committee. Once yours is approved, we&apos;ll email you the bank details for paying your membership fee.
             </p>
           </div>
         </div>
@@ -216,11 +216,11 @@ export default function BecomeMember() {
                 ✓
               </div>
               <h5 className="font-serif text-2xl text-cream-100 font-light">
-                {formMode === 'signup' ? 'Registration Request Received!' : 'Update Request Logged!'}
+                {formMode === 'signup' ? 'Application Received!' : 'Update Request Logged!'}
               </h5>
               <p className="text-xs text-cream-200/80 max-w-md mx-auto mt-2 leading-relaxed font-light">
                 {formMode === 'signup'
-                  ? 'Thanks for joining! One of our team will email you within a few days with our bank details, so you can pay your membership fee.'
+                  ? 'Thanks for applying to join SCRA! Your application will be reviewed by our committee. Once it has been approved, we will email you the details for paying your membership fee.'
                   : 'Thanks for letting us know. One of our team will update your details and be in touch if there’s anything else we need.'}
               </p>
             </div>
@@ -432,7 +432,7 @@ export default function BecomeMember() {
                   <span>
                     {submitting
                       ? 'Sending...'
-                      : formMode === 'signup' ? 'Submit Registration' : 'Save Details Update'}
+                      : formMode === 'signup' ? 'Submit Application' : 'Save Details Update'}
                   </span>
                   <Send className="w-3.5 h-3.5" />
                 </button>
