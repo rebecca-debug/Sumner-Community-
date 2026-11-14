@@ -20,6 +20,7 @@ export default function BecomeMember() {
     address: '',
     membershipType: 'household', // household, business, individual
     newsletter: true,
+    dataConsent: false,
     message: ''
   });
 
@@ -41,7 +42,7 @@ export default function BecomeMember() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!(formData.firstName && formData.lastName && formData.email && formData.address)) {
+    if (!(formData.firstName && formData.lastName && formData.email && formData.phone.trim() && formData.address && formData.dataConsent)) {
       return;
     }
 
@@ -64,10 +65,13 @@ export default function BecomeMember() {
         address: formData.address,
         membershipType: formMode === 'signup' ? formData.membershipType : '',
         newsletter: formData.newsletter ? 'yes' : 'no',
+        dataConsent: formData.dataConsent ? 'yes' : 'no',
         message: formData.message
       })
     })
-      .then(() => {
+      .then((res) => {
+        // Only show "received" if Netlify actually accepted the submission.
+        if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
         setSubmitting(false);
         setSubmitted(true);
         setTimeout(() => {
@@ -80,6 +84,7 @@ export default function BecomeMember() {
             address: '',
             membershipType: 'household',
             newsletter: true,
+            dataConsent: false,
             message: ''
           });
         }, 6000);
@@ -281,10 +286,11 @@ export default function BecomeMember() {
 
                 <div>
                   <label className="block font-mono text-[9px] tracking-widest text-cream-300 uppercase mb-1.5">
-                    Phone (Optional)
+                    Phone
                   </label>
                   <input
                     type="tel"
+                    required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="w-full bg-black/40 border border-white/15 px-4 py-3 text-sm text-cream-100 focus:outline-none focus:border-seagreen-500 rounded-none"
@@ -377,6 +383,20 @@ export default function BecomeMember() {
                 />
                 <label htmlFor="newsletter" className="font-sans text-xs text-cream-200/80 cursor-pointer font-light">
                   Subscribe to the monthly SCRA newsletter and get local updates straight to your inbox.
+                </label>
+              </div>
+
+              <div className="flex items-center gap-2.5 py-2">
+                <input
+                  type="checkbox"
+                  id="dataConsent"
+                  required
+                  checked={formData.dataConsent}
+                  onChange={(e) => setFormData({ ...formData, dataConsent: e.target.checked })}
+                  className="rounded-none border-white/20 bg-black/40 text-seagreen-500 focus:ring-0 cursor-pointer"
+                />
+                <label htmlFor="dataConsent" className="font-sans text-xs text-cream-200/80 cursor-pointer font-light">
+                  I agree to SCRA keeping my details securely in its shared drive and membership database.
                 </label>
               </div>
 
