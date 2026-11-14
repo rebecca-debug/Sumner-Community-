@@ -220,8 +220,8 @@ export default function BecomeMember() {
               </h5>
               <p className="text-xs text-cream-200/80 max-w-md mx-auto mt-2 leading-relaxed font-light">
                 {formMode === 'signup'
-                  ? 'Thank you for investing in Sumner. We have sent a confirmation email containing our Westpac bank account and membership reference. Please deposit $25 to complete activation.'
-                  : 'We have registered your updated home and email details in our local systems. We’ll reach out if any additional fee actions are required.'}
+                  ? 'Thanks for joining! One of our team will email you within a few days with our bank details, so you can pay your membership fee.'
+                  : 'Thanks for letting us know. One of our team will update your details and be in touch if there’s anything else we need.'}
               </p>
             </div>
           ) : (
