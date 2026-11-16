@@ -8,6 +8,9 @@ import { motion } from 'motion/react';
 import { BadgeCheck, Sparkles, AlertCircle, ShoppingBag, Send, Mail, RefreshCw } from 'lucide-react';
 import { loadRecaptcha, subscribeToNewsletter, RECAPTCHA_SITE_KEY } from '../newsletter';
 
+// Google Apps Script web app inside the "Membership for approval" sheet.
+const MEMBERSHIP_SHEET_URL = '';
+
 export default function BecomeMember() {
   const [formMode, setFormMode] = useState<'signup' | 'update'>('signup');
   const [submitted, setSubmitted] = useState(false);
@@ -96,26 +99,33 @@ export default function BecomeMember() {
     // Submits to Netlify Forms so the enquiry is captured and emailed on.
     // This relies on the hidden "membership" form declared in index.html
     // (Netlify only detects forms it can see in the built static HTML).
+    const submission: Record<string, string> = {
+      'form-name': 'membership',
+      formMode,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      address: formData.address,
+      membershipType: formMode === 'signup' ? formData.membershipType : '',
+      newsletter: newsletterValue,
+      dataConsent: formData.dataConsent ? 'yes' : 'no',
+      message: formData.message
+    };
+
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encodeFormData({
-        'form-name': 'membership',
-        formMode,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
-        address: formData.address,
-        membershipType: formMode === 'signup' ? formData.membershipType : '',
-        newsletter: newsletterValue,
-        dataConsent: formData.dataConsent ? 'yes' : 'no',
-        message: formData.message
-      })
+      body: encodeFormData(submission)
     })
       .then((res) => {
         // Only show "received" if Netlify actually accepted the submission.
         if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
+        // Also add it to the "Membership for approval" Google Sheet (05 Membership).
+        // Netlify stays the main record, so a problem here doesn't stop the form.
+        if (MEMBERSHIP_SHEET_URL) {
+          fetch(MEMBERSHIP_SHEET_URL, { method: 'POST', body: JSON.stringify(submission) }).catch(() => {});
+        }
         setSubmitting(false);
         setSubmitted(true);
         setTimeout(() => {
