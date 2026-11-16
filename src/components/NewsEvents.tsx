@@ -60,26 +60,56 @@ export default function NewsEvents() {
     }
   };
 
+  // "Submit an event or news item" goes to Netlify Forms (form name
+  // "community-submission", declared as a hidden form in index.html).
+  const [eventSending, setEventSending] = useState(false);
+  const [eventError, setEventError] = useState(false);
+  const [eventBotField, setEventBotField] = useState('');
+
   const handleEventSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (eventData.title && eventData.description && eventData.submitterEmail) {
-      setSubmitSuccess(true);
-      setTimeout(() => {
-        setSubmitSuccess(false);
-        setShowSubmitModal(false);
-        setEventData({
-          title: '',
-          date: '',
-          time: '',
-          location: '',
-          description: '',
-          submitterName: '',
-          submitterEmail: '',
-          type: 'event'
-        });
-      }, 4000);
-    }
+    if (!(eventData.title && eventData.description && eventData.submitterName && eventData.submitterEmail) || eventSending) return;
+    setEventSending(true);
+    setEventError(false);
+    const fields: Record<string, string> = {
+      'form-name': 'community-submission',
+      'bot-field': eventBotField,
+      type: eventData.type === 'event' ? 'Community event' : 'Local news',
+      title: eventData.title,
+      date: eventData.type === 'event' ? eventData.date : '',
+      time: eventData.type === 'event' ? eventData.time : '',
+      location: eventData.type === 'event' ? eventData.location : '',
+      description: eventData.description,
+      submitterName: eventData.submitterName,
+      submitterEmail: eventData.submitterEmail
+    };
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(fields).toString()
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(`Submission failed: ${res.status}`);
+        setSubmitSuccess(true);
+        setTimeout(() => {
+          setSubmitSuccess(false);
+          setShowSubmitModal(false);
+          setEventData({
+            title: '',
+            date: '',
+            time: '',
+            location: '',
+            description: '',
+            submitterName: '',
+            submitterEmail: '',
+            type: 'event'
+          });
+        }, 5000);
+      })
+      .catch(() => setEventError(true))
+      .finally(() => setEventSending(false));
   };
+
 
   return (
     <div className="w-full text-cream-105 max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20 select-text relative">
@@ -339,13 +369,20 @@ export default function NewsEvents() {
               {submitSuccess ? (
                 <div className="text-center py-8">
                   <Check className="w-12 h-12 text-seagreen-300 mx-auto mb-4 stroke-[1.5]" />
-                  <h5 className="font-serif text-lg">Submission Logged!</h5>
+                  <h5 className="font-serif text-lg">Thanks, it&apos;s with us!</h5>
                   <p className="text-xs text-cream-200/70 mt-2 font-light max-w-sm mx-auto">
-                    Thanks for contributing! One of our committee editors will check the guidelines and get back to you shortly.
+                    One of the SCRA team will have a look and get in touch if we have any questions.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleEventSubmit} className="space-y-4">
+                  {/* Spam trap: hidden from people, bots fill it in */}
+                  <p className="hidden">
+                    <label>
+                      Don&apos;t fill this out if you&apos;re human:{' '}
+                      <input name="bot-field" value={eventBotField} onChange={(e) => setEventBotField(e.target.value)} />
+                    </label>
+                  </p>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block font-mono text-[9px] tracking-widest text-cream-300 uppercase mb-1">Submission Type</label>
@@ -444,11 +481,19 @@ export default function NewsEvents() {
                     </div>
                   </div>
 
+                  {eventError && (
+                    <p className="text-xs text-red-700 leading-relaxed" role="alert">
+                      Something went wrong sending that through. Please try again, or email it to us at{' '}
+                      <a href="mailto:hub@sumnercommunity.nz" className="underline">hub@sumnercommunity.nz</a>.
+                    </p>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full bg-[#e5ba55] hover:bg-cream-100 text-ink-black px-4 py-3 font-mono text-xs uppercase tracking-widest transition-colors font-medium border-none"
+                    disabled={eventSending}
+                    className="w-full bg-[#e5ba55] hover:bg-cream-100 text-ink-black px-4 py-3 font-mono text-xs uppercase tracking-widest transition-colors font-medium border-none disabled:opacity-60 disabled:cursor-progress"
                   >
-                    Submit Request
+                    {eventSending ? 'Sending...' : 'Submit Request'}
                   </button>
                 </form>
               )}

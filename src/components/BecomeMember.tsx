@@ -3,15 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { BadgeCheck, Sparkles, AlertCircle, ShoppingBag, Send, Mail, RefreshCw } from 'lucide-react';
+import { loadRecaptcha, subscribeToNewsletter, RECAPTCHA_SITE_KEY } from '../newsletter';
 
 export default function BecomeMember() {
   const [formMode, setFormMode] = useState<'signup' | 'update'>('signup');
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(false);
+  // Newsletter tick box: signs the person up to MailerLite (see src/newsletter.ts).
+  const [captchaMessage, setCaptchaMessage] = useState('');
+  const [newsletterConfirmSent, setNewsletterConfirmSent] = useState(false);
+  const captchaRef = useRef<HTMLDivElement>(null);
+  const captchaId = useRef<number | null>(null);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -40,11 +46,49 @@ export default function BecomeMember() {
       .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
       .join('&');
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  // Draw Google's "I'm not a robot" box whenever the form is on screen.
+  useEffect(() => {
+    if (submitted) return;
+    let cancelled = false;
+    loadRecaptcha()
+      .then((g) => {
+        if (cancelled || !captchaRef.current || captchaId.current !== null) return;
+        captchaId.current = g.render(captchaRef.current, { sitekey: RECAPTCHA_SITE_KEY, theme: 'light' });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+      captchaId.current = null;
+    };
+  }, [submitted]);
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!(formData.firstName && formData.lastName && formData.email && formData.phone.trim() && formData.address && formData.dataConsent)) {
       return;
     }
+    setCaptchaMessage('');
+
+    // Newsletter first, while the "I'm not a robot" tick is still fresh.
+    let newsletterValue = 'no';
+    let confirmSent = false;
+    if (formData.newsletter) {
+      const token = window.grecaptcha && captchaId.current !== null ? window.grecaptcha.getResponse(captchaId.current) : '';
+      if (!token) {
+        setCaptchaMessage('Please tick the "I\'m not a robot" box so we can add you to the newsletter, or untick the newsletter box.');
+        return;
+      }
+      setSubmitting(true);
+      try {
+        await subscribeToNewsletter(formData.email, token);
+        newsletterValue = 'yes (confirmation email sent from MailerLite)';
+        confirmSent = true;
+      } catch {
+        newsletterValue = 'yes (NOT added automatically: please add them in MailerLite)';
+      }
+      if (window.grecaptcha && captchaId.current !== null) window.grecaptcha.reset(captchaId.current);
+    }
+    setNewsletterConfirmSent(confirmSent);
 
     setSubmitting(true);
     setSubmitError(false);
@@ -64,7 +108,7 @@ export default function BecomeMember() {
         phone: formData.phone,
         address: formData.address,
         membershipType: formMode === 'signup' ? formData.membershipType : '',
-        newsletter: formData.newsletter ? 'yes' : 'no',
+        newsletter: newsletterValue,
         dataConsent: formData.dataConsent ? 'yes' : 'no',
         message: formData.message
       })
@@ -223,6 +267,11 @@ export default function BecomeMember() {
                   ? 'Thanks for applying to join SCRA! Your application will be reviewed by our committee. Once it has been approved, we will email you the details for paying your membership fee.'
                   : 'Thanks for letting us know. One of our team will update your details and be in touch if there’s anything else we need.'}
               </p>
+              {newsletterConfirmSent && (
+                <p className="text-xs text-cream-200/80 max-w-md mx-auto mt-3 leading-relaxed font-light">
+                  We&apos;ve also emailed you a link to confirm your newsletter subscription. Click it and you&apos;re on the list.
+                </p>
+              )}
             </div>
           ) : (
             <form
@@ -411,6 +460,17 @@ export default function BecomeMember() {
                   className="w-full bg-black/40 border border-white/15 px-4 py-3 text-sm text-cream-100 focus:outline-none focus:border-seagreen-500 rounded-none"
                   placeholder="Tell us what local topics you’re passionate about (e.g. Civil Defence, beach ecology, path projects)..."
                 />
+              </div>
+
+              {/* "I'm not a robot" tick, needed to add someone to the newsletter */}
+              <div className={formData.newsletter ? 'space-y-2' : 'hidden'}>
+                <p className="font-sans text-xs text-cream-200/80 font-light">
+                  To add you to the newsletter, please tick the box below.
+                </p>
+                <div ref={captchaRef} className="min-h-[78px] overflow-hidden" />
+                {captchaMessage && (
+                  <p className="text-xs text-red-700 leading-relaxed" role="alert">{captchaMessage}</p>
+                )}
               </div>
 
               {submitError && (
