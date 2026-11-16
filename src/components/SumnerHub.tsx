@@ -6,7 +6,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { HUB_ACTIVITIES } from '../data';
-import { Truck, Palette, Waves, Leaf, Bike, ShieldAlert, Sparkles, ExternalLink, FileText } from 'lucide-react';
+import { Truck, Palette, Waves, Leaf, Bike, ShieldAlert, Sparkles, ArrowRight, FileText } from 'lucide-react';
 
 export default function SumnerHub() {
   // Map icon names from static definitions to real Lucide icons
@@ -135,13 +135,11 @@ export default function SumnerHub() {
               Check the calendar for available dates, then complete our online driver agreement and booking request form:
             </p>
             <a
-              href="https://form.jotform.com/Hub_Sumner/scra-community-van--driver-agreemen"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/van-booking.html"
               className="inline-flex items-center justify-center gap-2 w-full bg-[#e5ba55] hover:bg-cream-100 text-black px-5 py-3.5 font-mono text-xs uppercase tracking-widest font-semibold transition-all shadow-md group"
             >
               <span>Request a Booking Slot</span>
-              <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
             </a>
           </div>
         </div>

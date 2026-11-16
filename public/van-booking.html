@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book the Community Van | Sumner Community Residents' Association</title>
+<meta name="description" content="Request to hire the SCRA community van, a 9-seater Nissan Caravan for Sumner locals, community groups and businesses.">
+<style>
+  :root {
+    --sea: #1f4e5f;
+    --sea-dark: #163945;
+    --sea-soft: #e3eef1;
+    --sand: #f7f3ea;
+    --card: #ffffff;
+    --ink: #1d2a30;
+    --muted: #5b6b72;
+    --line: #d9d2c3;
+    --warn: #a33a1a;
+    --warn-soft: #fbe9e4;
+    --good: #2f6b3a;
+    --good-soft: #e3f2e5;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--sand);
+    color: var(--ink);
+    font: 17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 16px 64px; }
+  .back { display: inline-block; color: var(--sea); text-decoration: none; font-size: 15px; margin-bottom: 20px; }
+  .back:hover { text-decoration: underline; }
+
+  header.intro { margin-bottom: 28px; }
+  header.intro img { height: 64px; width: auto; display: block; margin-bottom: 16px; }
+  h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 600; font-size: 34px; line-height: 1.15; margin: 0 0 12px; color: var(--sea-dark); }
+  .lede { font-size: 18px; color: var(--ink); margin: 0 0 8px; }
+  .sub { color: var(--muted); margin: 0; }
+
+  fieldset {
+    border: 1px solid var(--line);
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px 20px 8px;
+    margin: 0 0 20px;
+  }
+  legend {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--sea-dark);
+    padding: 0 8px;
+    margin-left: -8px;
+  }
+  .step { display: inline-block; width: 28px; height: 28px; line-height: 28px; text-align: center; border-radius: 50%; background: var(--sea); color: #fff; font: 600 15px/28px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin-right: 8px; vertical-align: 2px; }
+
+  .field { margin: 0 0 20px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .row .field { min-width: 0; }
+  label, .q-label { display: block; font-weight: 600; margin-bottom: 6px; }
+  .req { color: var(--warn); font-weight: 600; }
+  .hint { color: var(--muted); font-size: 15px; margin: -2px 0 8px; }
+
+  input[type=text], input[type=email], input[type=tel], input[type=date], input[type=time], select, textarea {
+    width: 100%;
+    font: inherit;
+    color: inherit;
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    padding: 11px 12px;
+    min-height: 48px;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  select {
+    background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position: calc(100% - 20px) 21px, calc(100% - 14px) 21px;
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 40px;
+  }
+  textarea { min-height: 110px; resize: vertical; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--sea); box-shadow: 0 0 0 3px rgba(31, 78, 95, 0.18); }
+  input.touched:invalid, select.touched:invalid, textarea.touched:invalid { border-color: var(--warn); }
+
+  /* File pickers */
+  .file {
+    position: relative;
+    border: 2px dashed var(--line);
+    border-radius: 10px;
+    padding: 16px;
+    background: #fbfaf6;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .file.has { border-style: solid; border-color: var(--sea); background: var(--sea-soft); }
+  .file input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .file .thumb { width: 72px; height: 48px; border-radius: 6px; background: var(--sea-soft) center/cover no-repeat; flex: none; display: grid; place-items: center; color: var(--sea); font-size: 22px; }
+  .file .ftext { font-size: 15px; color: var(--muted); min-width: 0; overflow-wrap: anywhere; }
+  .file .ftext strong { display: block; color: var(--ink); font-size: 16px; }
+
+  /* Yes / No */
+  .yn { padding: 14px 0; border-top: 1px solid #eee7da; }
+  .yn:first-of-type { border-top: 0; padding-top: 4px; }
+  .yn .q-label { font-weight: 500; margin-bottom: 10px; }
+  .seg { display: inline-flex; border: 1.5px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg label { margin: 0; font-weight: 600; position: relative; }
+  .seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .seg span { display: block; padding: 10px 26px; cursor: pointer; background: #fff; min-width: 80px; text-align: center; }
+  .seg label + label span { border-left: 1.5px solid var(--line); }
+  .seg input:checked + span { background: var(--sea); color: #fff; }
+  .seg input[value=Yes]:checked + span { background: var(--warn); }
+  .seg input:focus-visible + span { box-shadow: inset 0 0 0 3px rgba(31, 78, 95, 0.35); }
+
+  .info {
+    background: var(--sea-soft);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 4px 0 20px;
+    font-size: 16px;
+  }
+  .info h3 { margin: 0 0 8px; font-size: 16px; color: var(--sea-dark); }
+  .info ul { margin: 0; padding-left: 20px; }
+  .info li { margin: 4px 0; }
+
+  .check { display: flex; gap: 12px; align-items: flex-start; font-weight: 500; cursor: pointer; }
+  .check input { width: 22px; height: 22px; margin: 2px 0 0; flex: none; accent-color: var(--sea); }
+  .policy { display: inline-block; margin-bottom: 14px; color: var(--sea); font-weight: 600; }
+
+  .privacy { color: var(--muted); font-size: 15px; margin: 0 0 20px; padding: 0 4px; }
+
+  .error {
+    background: var(--warn-soft);
+    color: var(--warn);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 0 0 16px;
+    font-weight: 600;
+  }
+
+  button.submit {
+    width: 100%;
+    font: 600 18px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #fff;
+    background: var(--sea);
+    border: 0;
+    border-radius: 10px;
+    padding: 18px;
+    cursor: pointer;
+  }
+  button.submit:hover { background: var(--sea-dark); }
+  button.submit[disabled] { opacity: 0.7; cursor: progress; }
+
+  .done {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 22px;
+    text-align: center;
+  }
+  .done .tick { width: 56px; height: 56px; border-radius: 50%; background: var(--good-soft); color: var(--good); display: grid; place-items: center; font-size: 30px; margin: 0 auto 14px; }
+  .done h2 { font-family: Georgia, "Times New Roman", serif; color: var(--sea-dark); margin: 0 0 10px; font-size: 28px; }
+  .done .ref { display: inline-block; background: var(--sea-soft); color: var(--sea-dark); font-weight: 700; letter-spacing: 0.04em; padding: 8px 14px; border-radius: 8px; margin: 6px 0 14px; }
+  .done p { margin: 0 0 10px; }
+
+  .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  [hidden] { display: none !important; }
+
+  @media (max-width: 560px) {
+    h1 { font-size: 28px; }
+    .row { grid-template-columns: 1fr; gap: 0; }
+    fieldset { padding: 16px 16px 4px; }
+    .seg span { padding: 10px 20px; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="/#van-booking-calculator">&larr; Back to the SCRA website</a>
+
+  <header class="intro">
+    
+    <img src="/scra_logo.png" alt="Sumner Community Residents' Association" onerror="this.remove()">
+    <h1>Book the Community Van</h1>
+    <p class="lede">Our 9-seater Nissan Caravan is here for Sumner locals, community groups and businesses.</p>
+    <p class="sub">Fill this in and our Hub coordinator will be in touch to confirm your booking. It takes about five minutes, and you'll need your driver licence handy.</p>
+  </header>
+
+  <form id="vanForm" novalidate>
+    <!-- Spam trap: hidden from people, bots fill it in. -->
+    <div class="trap" aria-hidden="true">
+      <label for="website">Leave this empty</label>
+      <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+    </div>
+
+    <fieldset>
+      <legend><span class="step">1</span>About you</legend>
+      <div class="field">
+        <label for="fullName">Full name <span class="req">*</span></label>
+        <input type="text" id="fullName" name="fullName" autocomplete="name" required>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="email">Email <span class="req">*</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="phone">Phone <span class="req">*</span></label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="e.g. 021 123 4567" pattern="[0-9\s\+\(\)\-]{7,20}" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="dob">Date of birth <span class="req">*</span></label>
+        <input type="date" id="dob" name="dob" autocomplete="bday" required>
+      </div>
+      <div class="field">
+        <label for="address">Home address <span class="req">*</span></label>
+        <textarea id="address" name="address" autocomplete="street-address" rows="3" style="min-height:84px" required></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="step">2</span>Your driver licence</legend>
+      <div class="field">
+        <label for="licenceNumber">NZ driver licence number <span class="req">*</span></label>
+        <p class="hint">Two letters and six numbers, found under your photo, e.g. AB123456.</p>
+        <input type="text" id="licenceNumber" name="licenceNumber" autocapitalize="characters" autocomplete="off" required>
+      </div>
+      <div class="field">
+        <label for="licenceFront">Photo of the front of your licence <span class="req">*</span></label>
+        <p class="hint">A clear phone photo is perfect. Make sure all the writing is easy to read.</p>
+        <div class="file" data-for="licenceFront">
+          <div class="thumb" aria-hidden="true">&#128247;</div>
+          <div class="ftext"><strong>Tap to add a photo</strong>or take one now</div>
+          <input type="file" id="licenceFront" name="licenceFront" accept="image/*,application/pdf" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="licenceBack">Photo of the back of your licence <span class="req">*</span></label>
+        <div class="file" data-for="licenceBack">
+          <div class="thumb" aria-hidden="true">&#128247;</div>
+          <div class="ftext"><strong>Tap to add a photo</strong>or take one now</div>
+          <input type="file" id="licenceBack" name="licenceBack" accept="image/*,application/pdf" required>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="step">3</span>Driving history</legend>
+      <p class="hint" style="margin:0 0 6px">We ask every driver these questions. If you answer Yes to any of them, we'll just need a few details.</p>
+
+      <div class="yn">
+        <p class="q-label">Any accidents or losses involving vehicle damage or theft in the last 5 years? <span class="req">*</span></p>
+        <div class="seg">
+          <label><input type="radio" name="qAccidents" value="No" required><span>No</span></label>
+          <label><input type="radio" name="qAccidents" value="Yes"><span>Yes</span></label>
+        </div>
+      </div>
+      <div class="yn">
+        <p class="q-label">Any licence cancellations, suspensions or special conditions in the last 5 years? <span class="req">*</span></p>
+        <div class="seg">
+          <label><input type="radio" name="qLicence" value="No" required><span>No</span></label>
+          <label><input type="radio" name="qLicence" value="Yes"><span>Yes</span></label>
+        </div>
+      </div>
+      <div class="yn">
+        <p class="q-label">Any driving offences or traffic infringements (not counting parking) in the last 5 years? <span class="req">*</span></p>
+        <div class="seg">
+          <label><input type="radio" name="qOffences" value="No" required><span>No</span></label>
+          <label><input type="radio" name="qOffences" value="Yes"><span>Yes</span></label>
+        </div>
+      </div>
+      <div class="yn">
+        <p class="q-label">Has insurance been refused, cancelled or not renewed, or a claim refused, in the last 5 years? <span class="req">*</span></p>
+        <div class="seg">
+          <label><input type="radio" name="qInsurance" value="No" required><span>No</span></label>
+          <label><input type="radio" name="qInsurance" value="Yes"><span>Yes</span></label>
+        </div>
+      </div>
+      <div class="yn">
+        <p class="q-label">Any criminal convictions for fraud, theft, burglary, arson or wilful damage in the last 7 years? <span class="req">*</span></p>
+        <div class="seg">
+          <label><input type="radio" name="qConvictions" value="No" required><span>No</span></label>
+          <label><input type="radio" name="qConvictions" value="Yes"><span>Yes</span></label>
+        </div>
+      </div>
+
+      <div class="field" id="disclosureBox" hidden>
+        <label for="disclosure">Please tell us more about anything you answered Yes to <span class="req">*</span></label>
+        <p class="hint">What happened, and roughly when.</p>
+        <textarea id="disclosure" name="disclosure"></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="step">4</span>Your booking</legend>
+      <div class="row">
+        <div class="field">
+          <label for="pickupDate">Pick-up date <span class="req">*</span></label>
+          <input type="date" id="pickupDate" name="pickupDate" required>
+        </div>
+        <div class="field">
+          <label for="pickupTime">Pick-up time <span class="req">*</span></label>
+          <input type="time" id="pickupTime" name="pickupTime" value="09:00" step="900" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="returnDate">Return date <span class="req">*</span></label>
+          <input type="date" id="returnDate" name="returnDate" required>
+        </div>
+        <div class="field">
+          <label for="returnTime">Return time <span class="req">*</span></label>
+          <input type="time" id="returnTime" name="returnTime" value="17:00" step="900" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="purpose">Purpose of hire <span class="req">*</span></label>
+        <select id="purpose" name="purpose" required>
+          <option value="">Please choose</option>
+          <option>Private Hire</option>
+          <option>Community Group Hire</option>
+          <option>Business Hire</option>
+        </select>
+      </div>
+      <div class="field" id="orgBox" hidden>
+        <label for="organisation">Name of your group or business <span class="req">*</span></label>
+        <input type="text" id="organisation" name="organisation" autocomplete="organization">
+      </div>
+
+      <div class="info">
+        <h3>Good to know</h3>
+        <ul>
+          <li>Standard hire is 9am to 5pm. Keeping the van outside those hours adds an overnight fee of $25.</li>
+          <li>Hire is $1.20 per km, with fuel included.</li>
+          <li>If the van comes back needing extra cleaning, a $50 cleaning fee applies.</li>
+        </ul>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="step">5</span>Declaration</legend>
+      <a class="policy" href="https://docs.google.com/document/d/18XCrqMQBWjVeG40ieoSxem_kqBMQhB7O/edit?usp=sharing" target="_blank" rel="noopener">Read the Vehicle Use Policy (opens in a new tab)</a>
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" id="agreed" name="agreed" value="yes" required>
+          <span>I have read and agree to the rules and requirements in the Vehicle Use Policy, and I confirm that everything I've told you is true and accurate. <span class="req">*</span></span>
+        </label>
+      </div>
+      <div class="field">
+        <label for="typedName">Type your full name <span class="req">*</span></label>
+        <p class="hint">This counts as your signature. Today's date is added automatically.</p>
+        <input type="text" id="typedName" name="typedName" autocomplete="name" required>
+      </div>
+    </fieldset>
+
+    <p class="privacy">Your details and licence photos go straight into SCRA's private Google Drive. Only the people who look after van hire can see them, we only use them to check you're able to drive the van, and your licence photos are deleted 90 days after your hire.</p>
+
+    <div class="error" id="formError" role="alert" hidden></div>
+    <button type="submit" class="submit" id="submitBtn">Send my booking request</button>
+  </form>
+
+  <section class="done" id="doneBox" hidden aria-live="polite">
+    <div class="tick" aria-hidden="true">&#10003;</div>
+    <h2 id="doneTitle">Thanks, your request is in!</h2>
+    <div class="ref" id="doneRef"></div>
+    <p>Our Hub coordinator will be in touch to check the details and confirm your booking.</p>
+    <p>Your booking isn't confirmed until you hear from us. We've emailed you a copy of your request.</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  // Paste the Google helper's web app address between the quotes.
+  var SCRIPT_URL = 'PASTE-YOUR-WEB-APP-URL-HERE';
+
+  var MAX_SIDE = 1600;          // photos are shrunk to this many pixels on the longest side
+  var QUALITY = 0.75;           // photo quality after shrinking (0 to 1)
+  var MAX_RAW = 8 * 1024 * 1024; // largest file we'll send without shrinking (PDFs etc)
+
+  var form = document.getElementById('vanForm');
+  var errorBox = document.getElementById('formError');
+  var btn = document.getElementById('submitBtn');
+  var $ = function (id) { return document.getElementById(id); };
+
+  function ymd(d) {
+    var m = d.getMonth() + 1, day = d.getDate();
+    return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
+  }
+  var today = ymd(new Date());
+  $('pickupDate').min = today;
+  $('returnDate').min = today;
+  $('dob').max = today;
+
+  $('pickupDate').addEventListener('change', function () {
+    var p = this.value;
+    $('returnDate').min = p || today;
+    if (p && (!$('returnDate').value || $('returnDate').value < p)) $('returnDate').value = p;
+  });
+
+  // Show the details box when any history answer is Yes.
+  function updateDisclosure() {
+    var anyYes = !!form.querySelector('.yn input[value="Yes"]:checked');
+    $('disclosureBox').hidden = !anyYes;
+    $('disclosure').required = anyYes;
+  }
+  form.querySelectorAll('.yn input').forEach(function (i) { i.addEventListener('change', updateDisclosure); });
+
+  // Ask for the group or business name when it's that kind of hire.
+  $('purpose').addEventListener('change', function () {
+    var needsOrg = this.value === 'Community Group Hire' || this.value === 'Business Hire';
+    $('orgBox').hidden = !needsOrg;
+    $('organisation').required = needsOrg;
+  });
+
+  // Copy the full name into the signature box if it's still empty.
+  $('fullName').addEventListener('blur', function () {
+    if (!$('typedName').value) $('typedName').placeholder = this.value;
+  });
+
+  // Photo previews.
+  form.querySelectorAll('.file input[type=file]').forEach(function (input) {
+    input.addEventListener('change', function () {
+      var box = input.closest('.file');
+      var thumb = box.querySelector('.thumb');
+      var text = box.querySelector('.ftext');
+      var f = input.files[0];
+      if (!f) {
+        box.classList.remove('has');
+        thumb.style.backgroundImage = '';
+        thumb.innerHTML = '&#128247;';
+        text.innerHTML = '<strong>Tap to add a photo</strong>or take one now';
+        return;
+      }
+      box.classList.add('has');
+      if (f.type.indexOf('image/') === 0) {
+        thumb.style.backgroundImage = 'url("' + URL.createObjectURL(f) + '")';
+        thumb.innerHTML = '';
+      } else {
+        thumb.style.backgroundImage = '';
+        thumb.innerHTML = '&#128196;';
+      }
+      text.innerHTML = '<strong>Added</strong>' + escapeHtml(f.name) + ' &middot; tap to change';
+    });
+  });
+
+  // Mark fields once someone has touched them, so errors only show after that.
+  form.addEventListener('blur', function (e) { if (e.target.matches('input, select, textarea')) e.target.classList.add('touched'); }, true);
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; });
+  }
+
+  function readRaw(file) {
+    return new Promise(function (resolve, reject) {
+      if (file.size > MAX_RAW) return reject(new Error('One of your licence files is too big. Please use a photo or PDF under 8 MB.'));
+      var r = new FileReader();
+      r.onload = function () { resolve({ name: file.name, type: file.type || 'application/octet-stream', data: String(r.result).split(',')[1] }); };
+      r.onerror = function () { reject(new Error('We could not read one of your licence files. Please try a different photo.')); };
+      r.readAsDataURL(file);
+    });
+  }
+
+  // Shrinks a photo so it uploads quickly and doesn't fill up Drive.
+  function prepareFile(file) {
+    return new Promise(function (resolve, reject) {
+      if (!file) return reject(new Error('Please add photos of the front and back of your licence.'));
+      if (file.type.indexOf('image/') !== 0) return readRaw(file).then(resolve, reject);
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var scale = Math.min(1, MAX_SIDE / Math.max(img.naturalWidth, img.naturalHeight));
+        var w = Math.round(img.naturalWidth * scale), h = Math.round(img.naturalHeight * scale);
+        var c = document.createElement('canvas');
+        c.width = w; c.height = h;
+        var ctx = c.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        var base = file.name.replace(/\.[^.]+$/, '') || 'licence';
+        resolve({ name: base + '.jpg', type: 'image/jpeg', data: c.toDataURL('image/jpeg', QUALITY).split(',')[1] });
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); readRaw(file).then(resolve, reject); };
+      img.src = url;
+    });
+  }
+
+  function showError(msg, focusEl) {
+    errorBox.textContent = msg;
+    errorBox.hidden = false;
+    if (focusEl) {
+      focusEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function () { try { focusEl.focus({ preventScroll: true }); } catch (e) {} }, 300);
+    } else {
+      errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  function setBusy(busy) {
+    btn.disabled = busy;
+    btn.textContent = busy ? 'Sending your request...' : 'Send my booking request';
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    errorBox.hidden = true;
+    form.querySelectorAll('input, select, textarea').forEach(function (el) { el.classList.add('touched'); });
+
+    var firstBad = form.querySelector(':invalid:not(fieldset)');
+    if (firstBad) {
+      var name = firstBad.closest('.field, .yn');
+      var label = name ? (name.querySelector('label, .q-label') || {}).textContent : '';
+      label = (label || '').replace('*', '').trim();
+      return showError(label ? 'Please check: ' + label : 'Please fill in all the required fields.', firstBad);
+    }
+
+    var pick = $('pickupDate').value + 'T' + $('pickupTime').value;
+    var ret = $('returnDate').value + 'T' + $('returnTime').value;
+    if (ret <= pick) return showError('Please check your return date and time. They need to be after pick-up.', $('returnDate'));
+
+    if (SCRIPT_URL.indexOf('https://') !== 0) return showError('This form isn\'t connected yet. Please contact the Sumner Hub to book the van.');
+
+    var payload = {};
+    new FormData(form).forEach(function (v, k) { if (typeof v === 'string') payload[k] = v.trim(); });
+    payload.agreed = $('agreed').checked;
+    if ($('orgBox').hidden) payload.organisation = '';
+    if ($('disclosureBox').hidden) payload.disclosure = '';
+
+    setBusy(true);
+    Promise.all([prepareFile($('licenceFront').files[0]), prepareFile($('licenceBack').files[0])])
+      .then(function (files) {
+        payload.licenceFront = files[0];
+        payload.licenceBack = files[1];
+        return fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
+      })
+      .then(function (res) { return res.json(); })
+      .then(function (out) {
+        if (!out || !out.ok) throw new Error((out && out.error) || 'Something went wrong. Please try again.');
+        var first = (payload.fullName || '').split(/\s+/)[0];
+        $('doneTitle').textContent = first ? 'Thanks ' + first + ', your request is in!' : 'Thanks, your request is in!';
+        $('doneRef').textContent = 'Your reference: ' + out.ref;
+        form.hidden = true;
+        $('doneBox').hidden = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(function (err) {
+        var msg = err && err.message ? err.message : '';
+        if (!msg || /fetch|network|load failed|json|unexpected/i.test(msg)) {
+          msg = 'We couldn\'t send your request. Please check your internet connection and try again. If it keeps happening, contact the Sumner Hub.';
+        }
+        showError(msg);
+      })
+      .then(function () { setBusy(false); });
+  });
+})();
+</script>
+</body>
+</html>
