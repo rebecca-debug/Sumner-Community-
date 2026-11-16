@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get the SCRA Newsletter | Sumner Community Residents' Association</title>
+<meta name="description" content="Join around 800 Sumner neighbours on the SCRA newsletter: community updates, council submissions and what's on in the village, once a month.">
+<meta property="og:title" content="Get the SCRA Newsletter">
+<meta property="og:description" content="What's happening in Sumner, once a month, straight to your inbox.">
+<meta property="og:image" content="https://sumnercommunity.nz/Hero-Sumner.jpg">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FFFDF5;
+    --ink: #121212;
+    --charcoal: #4a5452;
+    --muted: #62726f;
+    --pine: #1f473e;
+    --pine-soft: #e2edea;
+    --sand: #f7e8a4;
+    --line: #e4ddc8;
+    --warn: #a33a1a;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--cream); color: var(--ink); font: 300 17px/1.6 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .hero { position: relative; min-height: 240px; background: var(--pine) url("/Hero-Sumner.jpg") center/cover no-repeat; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,18,18,0.15), rgba(18,18,18,0.55)); }
+  .wrap { max-width: 560px; margin: -90px auto 0; padding: 0 16px 64px; position: relative; z-index: 1; }
+  .card { background: #fff; border: 1px solid var(--line); padding: 32px 28px; box-shadow: 0 12px 40px rgba(18,18,18,0.08); }
+  .logo { height: 56px; width: auto; display: block; margin-bottom: 18px; }
+  .eyebrow { font: 600 11px/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pine); margin: 0 0 10px; }
+  h1 { font: 400 36px/1.1 "Playfair Display", Georgia, serif; margin: 0 0 14px; }
+  p { margin: 0 0 14px; color: var(--charcoal); }
+  ul { margin: 0 0 22px; padding-left: 20px; color: var(--charcoal); }
+  li { margin: 4px 0; }
+  label { display: block; font-weight: 600; color: var(--ink); margin-bottom: 6px; font-size: 15px; }
+  input[type=email] { width: 100%; font: inherit; font-weight: 400; color: var(--ink); background: #fff; border: 1.5px solid var(--line); padding: 12px 14px; min-height: 50px; border-radius: 0; -webkit-appearance: none; appearance: none; }
+  input[type=email]:focus { outline: none; border-color: var(--pine); box-shadow: 0 0 0 3px rgba(31,71,62,0.15); }
+  .captcha { margin: 16px 0; min-height: 78px; }
+  .error { color: var(--warn); font-weight: 600; font-size: 15px; margin: 0 0 14px; }
+  button { width: 100%; border: 0; background: var(--ink); color: var(--cream); font: 600 13px/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.2em; text-transform: uppercase; padding: 18px; cursor: pointer; }
+  button:hover { background: var(--pine); }
+  button[disabled] { opacity: 0.6; cursor: progress; }
+  .small { font-size: 14px; color: var(--muted); margin: 16px 0 0; }
+  .done h2 { font: 400 30px/1.15 "Playfair Display", Georgia, serif; margin: 0 0 12px; }
+  .tick { width: 52px; height: 52px; border-radius: 50%; background: var(--pine-soft); color: var(--pine); display: grid; place-items: center; font-size: 26px; margin-bottom: 14px; }
+  .back { display: inline-block; margin-top: 22px; color: var(--pine); font-weight: 600; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  [hidden] { display: none !important; }
+  @media (max-width: 420px) {
+    .card { padding: 24px 18px; }
+    h1 { font-size: 30px; }
+    .captcha { transform: scale(0.92); transform-origin: 0 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="hero" role="img" aria-label="Sumner beach"></div>
+  <main class="wrap">
+    <div class="card">
+      <img class="logo" src="/scra_logo.png" alt="Sumner Community Residents' Association" onerror="this.remove()">
+
+      <section id="formBox">
+        <p class="eyebrow">Stay in the loop</p>
+        <h1>Get the SCRA newsletter</h1>
+        <p>Once a month, we share what's happening in Sumner, straight to your inbox. Join around 800 neighbours who already get it.</p>
+        <ul>
+          <li>Community news and what's on in the village</li>
+          <li>Council decisions and consultations that affect Sumner</li>
+          <li>Ways to get involved, from beach clean-ups to the AGM</li>
+        </ul>
+
+        <form id="nlForm" novalidate>
+          <div class="trap" aria-hidden="true">
+            <label for="website">Leave this empty</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <label for="email">Your email address</label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+          <div class="captcha g-recaptcha" data-sitekey="6Lf1KHQUAAAAAFNKEX1hdSWCS3mRMv4FlFaNslaD"></div>
+          <p class="error" id="err" role="alert" hidden></p>
+          <button type="submit" id="btn">Subscribe</button>
+        </form>
+        <p class="small">We'll send you a quick email to confirm. Your address is only used for the SCRA newsletter, and you can unsubscribe at any time from the link at the bottom of every email.</p>
+      </section>
+
+      <section class="done" id="doneBox" hidden aria-live="polite">
+        <div class="tick" aria-hidden="true">&#10003;</div>
+        <h2>Nearly there!</h2>
+        <p>We've sent an email to <strong id="doneEmail"></strong>. Click the button in it to confirm, and you're on the list.</p>
+        <p>If it isn't there in a few minutes, check your spam or promotions folder.</p>
+      </section>
+
+      <a class="back" href="/">&larr; Visit the SCRA website</a>
+    </div>
+  </main>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+(function () {
+  var FORM_URL = 'https://assets.mailerlite.com/jsonp/2339561/forms/204260058095158705/subscribe';
+  var form = document.getElementById('nlForm');
+  var email = document.getElementById('email');
+  var err = document.getElementById('err');
+  var btn = document.getElementById('btn');
+
+  function showError(msg) { err.textContent = msg; err.hidden = false; }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    err.hidden = true;
+    if (document.getElementById('website').value) return; // spam trap
+    var address = email.value.trim();
+    if (!address || !email.checkValidity()) { email.focus(); return showError('Please check your email address.'); }
+    var token = window.grecaptcha && window.grecaptcha.getResponse ? window.grecaptcha.getResponse() : '';
+    if (!token) return showError('Please tick the "I\'m not a robot" box first.');
+
+    btn.disabled = true;
+    btn.textContent = 'Subscribing...';
+    var body = new URLSearchParams();
+    body.append('fields[email]', address);
+    body.append('ml-submit', '1');
+    body.append('anticsrf', 'true');
+    body.append('g-recaptcha-response', token);
+
+    fetch(FORM_URL, { method: 'POST', body: body })
+      .then(function (r) { return r.json(); })
+      .then(function (out) {
+        if (out && out.success) {
+          document.getElementById('doneEmail').textContent = address;
+          document.getElementById('formBox').hidden = true;
+          document.getElementById('doneBox').hidden = false;
+          return;
+        }
+        var fieldErr = out && out.errors && out.errors.fields && out.errors.fields.email;
+        if (fieldErr) throw new Error('Please check your email address.');
+        if (out && out.message && /captcha/i.test(out.message)) throw new Error('The "I\'m not a robot" check timed out. Please tick it again and press Subscribe.');
+        throw new Error((out && out.message) || 'Something went wrong. Please try again.');
+      })
+      .catch(function (e) {
+        var msg = e && e.message ? e.message : '';
+        if (!msg || /fetch|network|load failed|json|unexpected/i.test(msg)) msg = 'We couldn\'t reach our mailing list just now. Please check your internet connection and try again.';
+        showError(msg);
+        if (window.grecaptcha && window.grecaptcha.reset) window.grecaptcha.reset();
+      })
+      .then(function () { btn.disabled = false; btn.textContent = 'Subscribe'; });
+  });
+})();
+</script>
+</body>
+</html>

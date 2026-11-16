@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { UPCOMING_EVENTS, NEWS_ITEMS } from '../data';
+import { loadRecaptcha, subscribeToNewsletter, RECAPTCHA_SITE_KEY } from '../newsletter';
 import { Calendar, Newspaper, Mail, PlusCircle, Check, ArrowRight, MapPin, Clock, X, BookOpen, ExternalLink } from 'lucide-react';
 
 export default function NewsEvents() {
@@ -24,16 +25,38 @@ export default function NewsEvents() {
     type: 'event' // event, news
   });
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newsletterEmail) {
-      const recipient = 'hub@sumnercommunity.nz';
-      const subject = encodeURIComponent('Newsletter Signup');
-      const body = encodeURIComponent(`Please add my email to the SCRA Newsletter mailing list:\n\nEmail: ${newsletterEmail}`);
-      const mailtoUrl = `mailto:${recipient}?subject=${subject}&body=${body}`;
+  // Newsletter sign-up goes straight to MailerLite (see src/newsletter.ts).
+  const [newsletterSending, setNewsletterSending] = useState(false);
+  const [newsletterError, setNewsletterError] = useState('');
+  const captchaRef = useRef<HTMLDivElement>(null);
+  const captchaId = useRef<number | null>(null);
 
-      window.location.href = mailtoUrl;
+  useEffect(() => {
+    if (newsletterSubscribed) return;
+    let cancelled = false;
+    loadRecaptcha()
+      .then((g) => {
+        if (cancelled || !captchaRef.current || captchaId.current !== null) return;
+        captchaId.current = g.render(captchaRef.current, { sitekey: RECAPTCHA_SITE_KEY, theme: 'light' });
+      })
+      .catch((err: Error) => setNewsletterError(err.message));
+    return () => { cancelled = true; };
+  }, [newsletterSubscribed]);
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail || newsletterSending) return;
+    setNewsletterError('');
+    setNewsletterSending(true);
+    try {
+      const token = window.grecaptcha && captchaId.current !== null ? window.grecaptcha.getResponse(captchaId.current) : '';
+      await subscribeToNewsletter(newsletterEmail, token);
       setNewsletterSubscribed(true);
+    } catch (err) {
+      setNewsletterError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+      if (window.grecaptcha && captchaId.current !== null) window.grecaptcha.reset(captchaId.current);
+    } finally {
+      setNewsletterSending(false);
     }
   };
 
@@ -84,7 +107,7 @@ export default function NewsEvents() {
 
       {/* Intro block */}
       <p className="text-cream-110 text-sm md:text-base leading-relaxed font-light max-w-4xl mb-12">
-        From beach clean-ups to community markets, trivia nights to council workshops &mdash; there is always something energetic happening in Sumner. This is your go-to guide for what&apos;s on and what&apos;s new in our village.
+        From beach clean-ups to community markets, trivia nights to council workshops, there is always something happening in Sumner. This is your go-to guide for what&apos;s on and what&apos;s new in our village.
       </p>
 
       {/* Monthly Newsletter Access Section */}
@@ -230,59 +253,51 @@ export default function NewsEvents() {
             <span className="font-mono text-[9px] text-seagreen-300 tracking-widest uppercase">STAY IN THE LOOP</span>
             <h4 className="font-serif text-2xl text-cream-100 font-light mt-1 mb-3">Newsletter Mail list</h4>
             <p className="text-xs text-cream-200/70 leading-relaxed font-light">
-              The SCRA newsletter is where we share the good stuff &mdash; crucial community updates, council submissions, upcoming events, and the occasional beautiful lifestyle photo of our beach. Delivered straight to your inbox monthly.
+              The SCRA newsletter is where we share the good stuff: community updates, council submissions, upcoming events, and the occasional beautiful photo of our beach. Delivered straight to your inbox once a month.
             </p>
           </div>
 
           {newsletterSubscribed ? (
-            <div className="p-5 bg-seagreen-950/60 border border-[#e5ba55]/40 text-cream-100 flex flex-col gap-3">
-              <div className="flex items-center gap-2 text-[#e5ba55] font-mono text-xs uppercase tracking-wider font-semibold">
+            <div className="p-5 bg-seagreen-100 border border-seagreen-300/40 text-cream-100 flex flex-col gap-3" role="status">
+              <div className="flex items-center gap-2 text-seagreen-200 font-mono text-xs uppercase tracking-wider font-semibold">
                 <Check className="w-4 h-4 shrink-0" />
-                <span>Subscription Ready to Send</span>
+                <span>Nearly there!</span>
               </div>
-              <p className="text-xs text-cream-200/80 leading-relaxed font-light">
-                Your email client should open pre-addressed to <strong className="text-[#e5ba55] font-normal">hub@sumnercommunity.nz</strong> with subject line &ldquo;Newsletter Signup&rdquo;.
+              <p className="text-xs text-cream-200 leading-relaxed">
+                We&apos;ve sent an email to <strong className="font-normal">{newsletterEmail}</strong>. Click the button in it to confirm, and you&apos;re on the list. If it isn&apos;t there in a few minutes, check your spam or promotions folder.
               </p>
-              <div className="pt-2 flex flex-col gap-2">
-                <a
-                  href={`mailto:hub@sumnercommunity.nz?subject=${encodeURIComponent('Newsletter Signup')}&body=${encodeURIComponent(`Please add my email to the SCRA Newsletter mailing list:\n\nEmail: ${newsletterEmail}`)}`}
-                  className="inline-flex items-center justify-center gap-2 bg-[#e5ba55] hover:bg-cream-100 text-black px-4 py-2.5 font-mono text-xs uppercase tracking-widest font-semibold transition-colors no-underline"
-                >
-                  Click Here if Mail Didn&apos;t Open
-                </a>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setNewsletterSubscribed(false);
-                    setNewsletterEmail('');
-                  }}
-                  className="font-mono text-[10px] text-cream-200/70 hover:text-white uppercase tracking-wider underline cursor-pointer bg-transparent border-none text-center"
-                >
-                  Subscribe Another Email
-                </button>
-              </div>
             </div>
           ) : (
             <form onSubmit={handleNewsletterSubmit} className="space-y-4">
               <div>
-                <label className="block font-mono text-[9px] tracking-widest text-cream-300 uppercase mb-2">
+                <label htmlFor="newsletter-email" className="block font-mono text-[9px] tracking-widest text-cream-300 uppercase mb-2">
                   Your Email Address
                 </label>
                 <input
+                  id="newsletter-email"
                   type="email"
                   required
+                  autoComplete="email"
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
-                  placeholder="e.g. rebecca@fantailweddings.com"
+                  placeholder="e.g. you@example.com"
                   className="w-full bg-black/40 border border-white/15 px-4 py-3 text-xs text-cream-100 focus:outline-none focus:border-seagreen-500 rounded-none placeholder-cream-200/30"
                 />
               </div>
 
+              {/* Google's "I'm not a robot" tick box, required by MailerLite */}
+              <div ref={captchaRef} className="min-h-[78px] overflow-hidden" />
+
+              {newsletterError && (
+                <p className="text-xs text-red-700 leading-relaxed" role="alert">{newsletterError}</p>
+              )}
+
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#e5ba55] hover:bg-cream-100 text-ink-black px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] font-medium transition-all duration-300 rounded-none"
+                disabled={newsletterSending}
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#e5ba55] hover:bg-cream-100 text-ink-black px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] font-medium transition-all duration-300 rounded-none disabled:opacity-60 disabled:cursor-progress"
               >
-                <span>Subscribe Now</span>
+                <span>{newsletterSending ? 'Subscribing...' : 'Subscribe Now'}</span>
                 <Mail className="w-4 h-4" />
               </button>
             </form>
@@ -291,7 +306,7 @@ export default function NewsEvents() {
           <div className="border border-white/5 p-4 flex gap-3 items-start bg-black/15 mt-6">
             <span className="text-xs text-seagreen-300 shrink-0">ⓘ</span>
             <p className="text-[10px] text-cream-250 leading-relaxed font-light">
-              We sync this list safely with our Mailchimp directory. You can easily opt-out or modify preferences at any time.
+              We&apos;ll send you a quick email to confirm. Your address is only used for the SCRA newsletter, and you can unsubscribe at any time from the link at the bottom of every email.
             </p>
           </div>
         </div>
