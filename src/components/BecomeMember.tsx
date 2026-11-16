@@ -9,7 +9,7 @@ import { BadgeCheck, Sparkles, AlertCircle, ShoppingBag, Send, Mail, RefreshCw }
 import { loadRecaptcha, subscribeToNewsletter, RECAPTCHA_SITE_KEY } from '../newsletter';
 
 // Google Apps Script web app inside the "Membership for approval" sheet.
-const MEMBERSHIP_SHEET_URL = '';
+const MEMBERSHIP_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwIpsq7FQeIbaySDNkFgr-Ce9ws4qJ1gJLbRUhjYtsP0h5PH8w1AT6YmFkj6IXvMQCm/exec';
 
 export default function BecomeMember() {
   const [formMode, setFormMode] = useState<'signup' | 'update'>('signup');
