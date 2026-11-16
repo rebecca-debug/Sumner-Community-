@@ -165,7 +165,7 @@ export const HUB_ACTIVITIES: HubActivity[] = [
   {
     id: 'van',
     title: 'Community Van',
-    description: 'A 10-seater van available for hire for school outings, sports trips, and community adventures around Canterbury.',
+    description: 'A 9-seater van available for hire for school outings, sports trips, and community adventures around Canterbury.',
     icon: 'Truck'
   },
   {

@@ -107,10 +107,10 @@ export default function SumnerHub() {
           </span>
           <h3 className="font-serif text-3xl font-light text-cream-100">Hire Our Community Van</h3>
           <p className="text-cream-200/90 text-sm leading-relaxed font-light">
-            Got a community group to move and nowhere to take them? We have got just the thing! The Sumner Hub&apos;s 10-seater community van is available for hire to local residents, sports clubs, schools, and non-profits.
+            Got a community group to move and nowhere to take them? We have got just the thing! The Sumner Hub&apos;s 9-seater community van is available for hire to local residents, sports clubs, schools, and non-profits.
           </p>
           <p className="text-cream-200/90 text-sm leading-relaxed font-light">
-            Whether you are planning a school outing, a sports trip, a day-trip to central Christchurch, or an outdoor weekend adventure around Canterbury &mdash; this is your ride.
+            Whether you are planning a school outing, a sports trip, a day-trip to central Christchurch, or an outdoor weekend adventure around Canterbury, this is your ride.
           </p>
 
           {/* Van Guidelines list */}
@@ -118,7 +118,8 @@ export default function SumnerHub() {
             <span className="font-mono text-[9px] text-[#e5ba55] tracking-widest uppercase block mb-1">GOOD TO KNOW</span>
             <ul className="space-y-1 text-xs text-cream-220 font-light font-sans list-disc list-inside">
               <li>Bookings are made on a first-come, first-served basis.</li>
-              <li>Please return the van clean and with a full tank of fuel.</li>
+              <li>Hire is $1.20 per km with fuel included, so there&apos;s no need to refuel.</li>
+              <li>Please return the van clean and tidy.</li>
               <li>A valid New Zealand driver&apos;s licence is strictly required.</li>
             </ul>
           </div>
